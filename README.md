@@ -16,7 +16,7 @@ The $POLICY variable needs to be set to something that allows scripts to run, fo
 ## Download
 To download the repository make sure you are in the `$profile` folder, which is usually found in "~/Documents/WindowsPowerShell/", and run the following command:
 ```powershell
-git clone https://github.com/vegarkarlsen/powershell-profile.git
+git clone https://github.com/vegarkarlsen/windows-config.git
 ```
 
 The full configuration can be installed by running the `install.ps1` script, this sets up symbolic links for all the config files in the right directories, as well as download some usefull powershell modules.
