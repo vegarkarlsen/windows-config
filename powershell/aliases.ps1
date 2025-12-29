@@ -98,10 +98,7 @@ function Find-File($name) {
 
 # FIXME: does not work
 function unzip ($file, $out_name = $file){
-    $fullfile = Get-ChildItem 
-    Write-Output($fullfile)
-
-    # Write-Output("Extracting", $pwd + $file, "to", $pwd + $outname)
+    Write-Output(This function does not work)
 }
 
 
