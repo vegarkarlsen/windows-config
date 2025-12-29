@@ -1,0 +1,241 @@
+
+# Replace the "❯" symbol in the prompt with "➜"
+# [character]      # The name of the module we are configuring is "character"
+# symbol = "❯"
+#symbol = "➜"     # The "symbol" segment is being set to "➜"
+# use_symbol_for_status = true  # Show "✖" when the command failed
+
+# [custom.shell]
+# command = "echo $STARSHIP_SHELL"  # shows output of command
+# when = """ test "$STARSHIP_SHELL" != "fish" """
+# style = "dimmed blue"
+# # format = "[$output]($style)"
+# # format = "[  ]($style) ( $directory )"
+# # format = "$all $directory"
+# shell =["zsh"]
+
+# [custom.neovim]
+# command = 'bob ls | rg Used | awk "{print \$2}"'  # shows output of command
+# detect_folders = ["lua"]
+# style = "green"
+# format = "[ $output ]($style)"
+# shell =["bash"]
+
+add_newline = false
+
+format = """
+$os\
+$directory\
+$git_branch\
+$git_status\
+$hostname\
+$fill\
+$status\
+$python\
+$line_break\
+$character\
+"""
+
+# Does not work in powershell
+right_format = """
+$status\
+$python\
+$docker_context\
+$container\
+$golang\
+$custom\
+"""
+
+# Show which ROS distro when ROS is activated
+[custom.ros]
+command = "echo $ROS_DISTRO"
+when = "test $ROS_VERSION"
+format = """[󱎕](fg:black)\
+[󰳗 $output]($style)\
+[](fg:black)
+"""
+style = "fg:bold yellow bg:black"
+
+
+[git_status]
+untracked = '[ $count](bold yellow) '
+staged = '[ $count](bold green) '
+stashed = "[ ](cyan) "
+deleted = '[ $count](bold red) '
+modified= '[ $count](bold blue) '
+behind = '[ ](bold purple) '
+ahead = '[ ](bold purple) '
+format = '([$all_status$ahead_behind]($style))'
+
+[[battery.display]]
+threshold = 50
+
+[lua]
+detect_folders = []
+symbol = " "
+
+[git_metrics]
+disabled = false
+
+[aws]
+symbol = "  "
+
+[buf]
+symbol = " "
+
+[c]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[directory]
+# format = "$path "
+format = '[$path]($style)[$read_only]($read_only_style) '
+read_only = " 󰌾"
+style = "fg:bold bright-blue"
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[git_branch]
+symbol = " "
+style = "fg:purple"
+format = "[$symbol$branch(:$remote_branch)]($style) "
+
+[golang]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = "⌘ "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+ssh_only = true
+format = '[$ssh_symbol$hostname]($style) '
+style = 'bold green'
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
+
+[nim]
+symbol = "󰆥 "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[os]
+format = " [$symbol]($style)"
+# style = "dimmed blue"
+style = "fg:bold yellow"
+disabled = false
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Windows = "󰍲 "
+
+[package]
+symbol = "󰏗 "
+
+[pijul_channel]
+symbol = "🪺 "
+
+# format = """[󱎕](fg:black)\
+# [󰳗 $output]($style)\
+# [](fg:black)
+# """
+[python]
+# python_binary = "py.exe"
+symbol = " "
+# detect_extensions = ["py"]
+format = """[󱎕](fg:blue)\
+[${symbol}${pyenv_prefix}(${version} )($virtualenv )]($style)\
+[](fg:blue)
+"""
+# format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+style = "fg:bright-white bg:blue"
+
+[rlang]
+symbol = "󰟔 "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[scala]
+symbol = " "
+
+[spack]
+symbol = "🅢 "
