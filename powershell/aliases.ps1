@@ -2,6 +2,9 @@
 ### Functions
 ### ----------------------------------------------------------------------------------------
 
+$env:EDITOR = "nvim"
+
+
 # If so and the current host is a command line, then change to red color 
 # as warning to user that they are operating in an elevated context
 # Useful shortcuts for traversing directories
@@ -46,14 +49,22 @@ function Edit-Profile {
     }
 }
 
+# FIXME: sourcing of file afterwards does not seem to work
 function Edit-alias {
-    nvim "$powershell_config/aliases.ps1"
+    $alias_file = "$powershell_config/aliases.ps1"
+    nvim $alias_file
+    . $alias_file
 }
 Set-Alias malias Edit-alias
 
-function Edit-nivm {
-    nivm "$env:LocalAppData/nvim"
+function Edit-nvim {
+    nvim "$env:LocalAppData/nvim"
 }
+
+function Edit-env {
+        $env_file = "$powershell_config/env.ps1"
+        nvim "$env_file"
+    }
 
 # TODO: Missplacesd?
 Function Test-CommandExists {
@@ -66,10 +77,10 @@ Function Test-CommandExists {
 }
 
 function ln ($link, $target){
-    New-Item -Path $link -ItemType SymbolicLink -Value $targe
+    # New-Item -Path $link -ItemType SymbolicLink -Value $targe
+    New-Item -Path $link -ItemType HardLink -Value $targe
 }
 
-function ll { Get-ChildItem -Path $pwd -File }
 
 function Get-PubIP {
     (Invoke-WebRequest http://ifconfig.me/ip ).Content
@@ -122,7 +133,13 @@ function sed($file, $find, $replace) {
     (Get-Content $file).replace("$find", $replace) | Set-Content $file
 }
 
-function which($name) {
+function which() {
+    param(
+        [string]$name
+    )
+    if ( $name -eq ""){
+            return "No argument passed."
+        }
     Get-Command $name | Select-Object -ExpandProperty Definition
 }
 
@@ -145,9 +162,11 @@ function poweroff { shutdown /s }
 
 function reboot { shutdown /r }
 
-
-Remove-Item Alias:cd    # Powershell < v.5
-#Remove-Alias -Name cd   # Powershell > v.6
+# Remove alias cd and replace by custom function
+if ((get-command cd).CommandType -eq "Alias") {
+    Remove-Item Alias:cd    # Powershell < v.5
+    #Remove-Alias -Name cd   # Powershell > v.6
+    }
 function cd {
     param (
         [string]$Path
@@ -160,12 +179,41 @@ function cd {
     }
 }
 
+if ((Get-Command ls).CommandType -eq "Alias") {
+        Remove-Item Alias:ls
+    }
+function ls {
+    if ($args.Count -eq 0) {
+        Get-ChildItem | Where-Object { $_.Name -notmatch '^\.' }
+    }
+    elseif ($args -contains "-a"){
+        Get-ChildItem
+    }
+    else {
+        Get-ChildItem -Force
+    }
+}
+function la {
+    Get-ChildItem
+}
+function ll {
+    Get-ChildItem -Force
+}
+
+# function ll { Get-ChildItem -Path $pwd -File }
+
 #function activate { .\venv\Scripts\activate.ps1 }
-Set-Alias activate .venv/Scripts/activate.ps1
+Set-Alias activate .\venv\Scripts\Activate.ps1
 
 #function sudo { gsudo }
-Set-Alias sudo gsudo
+# Set-Alias sudo gsudo
 
 #function e { explorer.exe $_}
 Set-Alias e explorer.exe
+
+Set-Alias open Invoke-Item
+
+# function t {
+#         echo "test"
+#     }
 
