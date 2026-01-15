@@ -10,15 +10,15 @@
 # ------------------------------------------------------------------------------------------
 #   SETTINGS
 # ------------------------------------------------------------------------------------------
-$env:VIRTUAL_ENV_DISABLE_PROMPT = 1                         # disable python (venv) prompt
+# $env:VIRTUAL_ENV_DISABLE_PROMPT = 1                         # disable python (venv) prompt
 Set-PSREadlineOption -EditMOde vi
-Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete    # get autocomplete menu on tab
+# Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete    # get autocomplete menu on tab
 
 # ------------------------------------------------------------------------------------------
 #   Import Modules
 # ------------------------------------------------------------------------------------------
 Import-Module -Name Terminal-Icons                          # Nicer icons on ls
-Import-Module -Name posh-git                                # Automcomplete git commands
+# Import-Module -Name posh-git                                # Automcomplete git commands
 
 # ------------------------------------------------------------------------------------------
 #   Soruce config files
@@ -33,5 +33,5 @@ $powershell_config = "$profile_folder/windows-config/powershell"
 # ------------------------------------------------------------------------------------------
 #   Load prompt
 # ------------------------------------------------------------------------------------------
-oh-my-posh init pwsh --config "$powershell_config\custom_posh_themes\iterm2.omp.json" | Invoke-Expression
-
+# oh-my-posh init pwsh --config "$powershell_config\custom_posh_themes\iterm2.omp.json" | Invoke-Expression
+Invoke-Expression (&starship init powershell)
