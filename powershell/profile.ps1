@@ -18,7 +18,7 @@ Set-PSREadlineOption -EditMOde vi
 #   Import Modules
 # ------------------------------------------------------------------------------------------
 Import-Module -Name Terminal-Icons                          # Nicer icons on ls
-# Import-Module -Name posh-git                                # Automcomplete git commands
+Import-Module -Name posh-git                                # Automcomplete git commands
 
 # ------------------------------------------------------------------------------------------
 #   Soruce config files

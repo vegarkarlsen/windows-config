@@ -12,9 +12,12 @@ New-Item -Path "$profile_folder/profile.ps1" -ItemType HardLink -Value "powershe
 # winget install JanDeDobbeleer.OhMyPosh
 
 # Install Terminal-Icons
-# Install-Module -Name Terminal-Icons -Repository PSGallery -Scope CurrentUser
+Install-Module -Name Terminal-Icons -Repository PSGallery -Scope CurrentUser
 
 # Install PSreadline
-# Install-Module -Name PSReadLine -Repository PSGallery -Scope CurrentUser
+Install-Module -Name PSReadLine -Repository PSGallery -Scope CurrentUser
+
+# Install Git autocompletion
+Install-Module posh-git -Scope CurrentUser
 
 
