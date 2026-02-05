@@ -20,4 +20,9 @@ Install-Module -Name PSReadLine -Repository PSGallery -Scope CurrentUser
 # Install Git autocompletion
 Install-Module posh-git -Scope CurrentUser
 
+# Install fzf
+# winget install fzf # TODO: Do we need this aswell?
+Install-Module PSFzf -Scope CurrentUser
+
+
 

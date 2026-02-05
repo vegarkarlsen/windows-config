@@ -19,6 +19,14 @@ Set-PSREadlineOption -EditMOde vi
 # ------------------------------------------------------------------------------------------
 Import-Module -Name Terminal-Icons                          # Nicer icons on ls
 Import-Module -Name posh-git                                # Automcomplete git commands
+Import-Module -Name PSReadLine                              # PSReadLine (This may be deafult)
+Import-Module -Name PSFzf                                   # Fuzzy finder
+
+# Setup recursive fzf
+Set-PsFzfOption `
+  -PSReadlineChordReverseHistory 'Ctrl+r' `
+  -PSReadlineChordProvider 'Ctrl+t'
+
 
 # ------------------------------------------------------------------------------------------
 #   Soruce config files
