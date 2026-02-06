@@ -7,6 +7,8 @@ $powershell_config = "$profile_folder/windows-config/powershell"
 # New-Item -Path "$profile_folder/profile.ps1" -ItemType SymbolicLink -Value "$powershell_config/profile.ps1" -Force
 New-Item -Path "$profile_folder/profile.ps1" -ItemType HardLink -Value "powershell_config/profile.ps1"
 
+# Creat windows terminal junction
+New-Item -ItemType Junction -Path "$ENV:LOCALAPPDATA/Windows Terminal/Fragments" -Target "$profile_folder/windows_config/WindowsTerminal/Fragments"
 
 # Install oh-my-posh
 # winget install JanDeDobbeleer.OhMyPosh

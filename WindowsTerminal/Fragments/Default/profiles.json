@@ -1,0 +1,14 @@
+{
+    "profiles":
+    {
+        "defaults":
+        {
+            "colorScheme": "Tokyo-Night-Storm",
+            "font":
+            {
+                "face": "MesloLGS NF"
+            }
+        }
+    }
+    
+}

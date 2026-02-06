@@ -1,0 +1,50 @@
+{
+    "actions": 
+    [ 
+        {
+            "command": 
+                {
+                    "action": "splitPane",
+                    "split": "auto",
+                    "splitMode": "duplicate"
+                },
+            "keys": "ctrl+shift+s"
+        },
+        {
+            "command": 
+                {
+                    "action": "moveFocus",
+                    "direction": "left"
+                },
+            "keys": "ctrl+shift+h"
+        },
+        {
+            "command": 
+                {
+                    "action": "moveFocus",
+                    "direction": "right"
+                },
+            "keys": "ctrl+shift+l"
+        },
+        {
+            "command": 
+                {
+                    "action": "moveFocus",
+                    "direction": "up"
+                },
+            "keys": "ctrl+shift+k"
+        },
+        {
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "down"
+            },
+            "keys": "ctrl+shift+j"
+        },
+        {
+            "command": "find",
+            "keys": "ctrl+shift+f"
+        }
+    ]
+}
