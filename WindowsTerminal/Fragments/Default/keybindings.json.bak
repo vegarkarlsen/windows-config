@@ -1,0 +1,43 @@
+// NB!! THIS DOES NOT LOAD
+{
+
+    "keybindings":
+    [ 
+        {
+            "id": "Terminal.DuplicatePaneAuto",
+            "keys": "ctrl+shift+s"
+        },
+        {
+            "id": "Terminal.MoveFocusLeft",
+            "keys": "ctrl+shift+h"
+        },
+        {
+            "id": "Terminal.MoveFocusRight",
+            "keys": "ctrl+shift+l"
+        },
+        {
+            "id": "Terminal.MoveFocusUp",
+            "keys": "ctrl+shift+k"
+        },
+        {
+            "id": "Terminal.CopyToClipboard",
+            "keys": "ctrl+c"
+        },
+        {
+            "id": "Terminal.MoveFocusDown",
+            "keys": "ctrl+shift+j"
+        },
+        {
+            "id": "Terminal.FindText",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "id": "Terminal.PasteFromClipboard",
+            "keys": "ctrl+v"
+        },
+        {
+            "id": "Terminal.DuplicatePaneAuto",
+            "keys": "alt+shift+d"
+        }
+    ]
+}
