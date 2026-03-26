@@ -2,9 +2,6 @@
 ### Functions
 ### ----------------------------------------------------------------------------------------
 
-$env:EDITOR = "nvim"
-
-
 # If so and the current host is a command line, then change to red color 
 # as warning to user that they are operating in an elevated context
 # Useful shortcuts for traversing directories
@@ -18,7 +15,7 @@ function sha256 { Get-FileHash -Algorithm SHA256 $args }
 
 # Quick shortcut to start notepad
 function n { notepad $args }
-function vim { nvim $args }
+function vim { Invoke-expression "$env:EDITOR $args" }
 
 # Drive shortcuts
 function Env: { Set-Location Env: }
@@ -38,33 +35,6 @@ function dirs {
     }
 }
 
-
-# Make it easy to edit this profile once it's installed
-function Edit-Profile {
-    if ($host.Name -match "ise") {
-        $psISE.CurrentPowerShellTab.Files.Add($profile.CurrentUserAllHosts)
-    } else {
-        #notepad $profile.CurrentUserAllHosts
-        nvim $profile.CurrentUserAllHosts
-    }
-}
-
-# FIXME: sourcing of file afterwards does not seem to work
-function Edit-alias {
-    $alias_file = "$powershell_config/aliases.ps1"
-    nvim $alias_file
-    . $alias_file
-}
-Set-Alias malias Edit-alias
-
-function Edit-nvim {
-    nvim "$env:LocalAppData/nvim"
-}
-
-function Edit-env {
-        $env_file = "$powershell_config/env.ps1"
-        nvim "$env_file"
-    }
 
 # TODO: Missplacesd?
 Function Test-CommandExists {
@@ -189,8 +159,11 @@ function ls {
     elseif ($args -contains "-a"){
         Get-ChildItem
     }
-    else {
+    elseif ($args -contains "-la"){
         Get-ChildItem -Force
+    }
+    else {
+        Get-ChildItem $args
     }
 }
 function la {
