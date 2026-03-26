@@ -14,6 +14,8 @@
 Set-PSREadlineOption -EditMOde vi
 # Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete    # get autocomplete menu on tab
 
+$env:EDITOR = "notepad"
+
 # ------------------------------------------------------------------------------------------
 #   Import Modules
 # ------------------------------------------------------------------------------------------
@@ -27,6 +29,10 @@ Set-PsFzfOption `
   -PSReadlineChordReverseHistory 'Ctrl+r' `
   -PSReadlineChordProvider 'Ctrl+t'
 
+# Optional: make history richer / more useful
+# Set-PSReadLineOption -HistorySearchCursorMovesToEnd
+# Set-PSReadLineOption -PredictionSource History
+# Set-PSReadLineOption -BellStyle None
 
 # ------------------------------------------------------------------------------------------
 #   Soruce config files
@@ -36,6 +42,7 @@ $powershell_config = "$profile_folder/windows-config/powershell"
 
 . "$powershell_config/env.ps1"
 . "$powershell_config/aliases.ps1"
+. "$powershell_config/quick_edit.ps1"
 
 
 # ------------------------------------------------------------------------------------------
