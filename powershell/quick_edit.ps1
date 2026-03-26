@@ -20,6 +20,14 @@ function Edit-Profile {
 
 }
 
+function Edit-LocalProfile {
+        $file = "$powershell_config/local-profile.ps1"
+        if (-not (Test-Path $file)){
+                new-item $file
+            }
+        Change-Folder-Open-file $file
+    }
+
 function Edit-alias {
     $alias_file = "$powershell_config/aliases.ps1"
     Change-Folder-Open-file $alias_file
@@ -40,3 +48,4 @@ function Edit-penv {
 
 
 Set-Alias malias Edit-alias
+Set-Alias maliasl Edit-LocalProfile
