@@ -44,6 +44,9 @@ $powershell_config = "$profile_folder/windows-config/powershell"
 . "$powershell_config/aliases.ps1"
 . "$powershell_config/quick_edit.ps1"
 
+if (Test-Path "$powershell_config/local-profile.ps1"){
+        . "$powershell_config/local-profile.ps1"
+    }
 
 # ------------------------------------------------------------------------------------------
 #   Load prompt
