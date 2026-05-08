@@ -8,7 +8,21 @@
             {
                 "face": "MesloLGS NF"
             }
+        },
+        "list" : [
+
+        {
+        "name": "MSYS2 UCRT64",
+        "commandline": "C:\\msys64\\usr\\bin\\bash.exe -l -i",
+        "startingDirectory": "C:\\msys64\\home\\%USERNAME%",
+        "icon": "C:\\msys64\\msys2.ico",
+        "env": {
+            "MSYSTEM": "UCRT64",
+            "CHERE_INVOKING": "1"
+            }
         }
+
+        ]
     }
     
 }

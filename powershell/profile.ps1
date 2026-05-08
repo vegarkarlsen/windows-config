@@ -19,7 +19,7 @@ $env:EDITOR = "notepad"
 # ------------------------------------------------------------------------------------------
 #   Import Modules
 # ------------------------------------------------------------------------------------------
-Import-Module -Name Terminal-Icons                          # Nicer icons on ls
+#Import-Module -Name Terminal-Icons                          # Nicer icons on ls
 Import-Module -Name posh-git                                # Automcomplete git commands
 Import-Module -Name PSReadLine                              # PSReadLine (This may be deafult)
 Import-Module -Name PSFzf                                   # Fuzzy finder
@@ -52,4 +52,4 @@ if (Test-Path "$powershell_config/local-profile.ps1"){
 #   Load prompt
 # ------------------------------------------------------------------------------------------
 # oh-my-posh init pwsh --config "$powershell_config\custom_posh_themes\iterm2.omp.json" | Invoke-Expression
-Invoke-Expression (&starship init powershell)
+# Invoke-Expression (&starship init powershell)
