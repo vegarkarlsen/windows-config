@@ -26,6 +26,7 @@ function Edit-LocalProfile {
                 new-item $file
             }
         Change-Folder-Open-file $file
+        . $file
     }
 
 function Edit-alias {
