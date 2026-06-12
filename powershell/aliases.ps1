@@ -186,7 +186,13 @@ Set-Alias e explorer.exe
 
 Set-Alias open Invoke-Item
 
-# function t {
-#         echo "test"
-#     }
+Set-Alias ie Invoke-expression
+
+# Override sl to ls
+if ((Get-Command sl).CommandType -eq "Alias") {
+        Remove-Item Alias:sl -Force
+}
+function sl { ls }
+
+
 
