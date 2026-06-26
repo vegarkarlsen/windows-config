@@ -46,7 +46,7 @@ function Extract-Files {
             }
 
         }
+        Write-Host $cmd
         Invoke-Expression $cmd
-        # Write-Host $cmd
     }
 }
