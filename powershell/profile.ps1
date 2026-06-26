@@ -1,8 +1,6 @@
 ### PowerShell template profile
 ### Version 1.01 - Vegar Karlsen
 ###
-### The Profile is inspired by Tim Sneath <tim@sneath.org>
-### https://gist.github.com/timsneath/19867b12eee7fd5af2ba
 ###
 ### ----------------------------------------------------------------------------------------
 
@@ -14,12 +12,11 @@
 Set-PSREadlineOption -EditMOde vi
 # Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete    # get autocomplete menu on tab
 
-$env:EDITOR = "notepad"
 
 # ------------------------------------------------------------------------------------------
 #   Import Modules
 # ------------------------------------------------------------------------------------------
-#Import-Module -Name Terminal-Icons                          # Nicer icons on ls
+Import-Module -Name Terminal-Icons                          # Nicer icons on ls
 Import-Module -Name posh-git                                # Automcomplete git commands
 Import-Module -Name PSReadLine                              # PSReadLine (This may be deafult)
 Import-Module -Name PSFzf                                   # Fuzzy finder
