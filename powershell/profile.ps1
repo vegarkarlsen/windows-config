@@ -1,22 +1,33 @@
 ### ----------------------------------------------------------------------------------------
 ### PowerShell profile entry point - Vegar Karlsen
 ###
-### This file is intentionally thin. The real $PROFILE is a one-line stub that
-### dot-sources this file (see install.ps1). All real configuration lives in
-### profile.d/ (loaded every session, in filename order).
+### This file is intentionally thin. The real $PROFILE (in each edition) is a one-line stub
+### that dot-sources this file. install.ps1 records the repo location in $env:WINCONFIG, and
+### this profile reads it - so the config can live ANYWHERE, and both PowerShell 7 and
+### Windows PowerShell 5.1 load the exact same files.
 ###
-### To install: see install.ps1
+### To install / relocate: see install.ps1
 ### ----------------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------------------
-#   Single source of truth for the repo location
+#   Resolve the config root from $env:WINCONFIG (set persistently by install.ps1)
 # ------------------------------------------------------------------------------------------
-# Everything derives from this one variable. Never hard-code the Documents path anywhere
-# else (that was the WindowsPowerShell-vs-PowerShell bug in the old config).
-$ConfigRoot = Join-Path (Split-Path $PROFILE) 'windows-config\powershell'
-
-# Expose it to child processes (and the Edit-*/Load-Tools helpers) so they can locate the repo.
-$env:WINCONFIG = $ConfigRoot
+# Single source of truth. install.ps1 sets WINCONFIG at User scope, so both editions inherit
+# it. The fallbacks only matter if the profile is somehow run before install.ps1 has set it.
+if ($env:WINCONFIG -and (Test-Path $env:WINCONFIG)) {
+    $ConfigRoot = $env:WINCONFIG
+}
+else {
+    # Fallbacks, in order of preference. Adjust the first if you move the repo and haven't
+    # yet (re)run install.ps1.
+    $candidates = @(
+        "$HOME\Documents\PowerShell\windows-config\powershell"          # PS7 default
+        "$HOME\Documents\WindowsPowerShell\windows-config\powershell"   # 5.1 default
+    )
+    $ConfigRoot = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+    if (-not $ConfigRoot) { $ConfigRoot = $candidates[0] }   # last resort, may not exist
+    $env:WINCONFIG = $ConfigRoot
+}
 
 # ------------------------------------------------------------------------------------------
 #   Load every fragment in profile.d, in filename order
@@ -33,6 +44,9 @@ if (Test-Path $fragmentDir) {
             Write-Warning "profile.d: failed to load $($_.Name): $_"
         }
     }
+}
+else {
+    Write-Warning "WINCONFIG resolved to '$ConfigRoot' but no profile.d found. Run install.ps1."
 }
 
 # ------------------------------------------------------------------------------------------
