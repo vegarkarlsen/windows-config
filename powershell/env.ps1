@@ -1,5 +1,5 @@
 
-$env:EDITOR = "nvim-qt"
+$env:EDITOR = "nvim"
 
 # Add to path
 $env:PATH += ";C:\Program Files\LLVM\bin"
