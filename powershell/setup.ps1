@@ -1,4 +1,6 @@
-
+# ------------------------------------------------------------------------------------------------------------
+# This script is Outdated. PLease use install.ps1 instead
+# ------------------------------------------------------------------------------------------------------------
 
 # Check if we are running from right github repo:
 $inGithubRepo = git rev-parse --is-inside-work-tree 2>$null
