@@ -15,7 +15,7 @@
 # Single source of truth. install.ps1 sets WINCONFIG at User scope, so both editions inherit
 # it. The fallbacks only matter if the profile is somehow run before install.ps1 has set it.
 if ($env:WINCONFIG -and (Test-Path $env:WINCONFIG)) {
-    $ConfigRoot = $env:WINCONFIG
+    $ConfigRoot = "$env:WINCONFIG/powershell"
 }
 else {
     # Fallbacks, in order of preference. Adjust the first if you move the repo and haven't

@@ -12,9 +12,9 @@
 
 [CmdletBinding()]
 param(
-    # Path to the powershell/ folder inside the repo. Defaults to this script's own
-    # location\powershell (this script lives at repo root, next to the powershell/ folder).
-    [string]$ConfigPath = (Join-Path $PSScriptRoot 'powershell'),
+    # Path to the windows-config root folder. Defaults to this script's own
+    # location.
+    [string]$ConfigPath = $PSScriptRoot,
     [switch]$InstallModules
 )
 
@@ -22,8 +22,8 @@ $ErrorActionPreference = 'Stop'
 
 # Normalise to an absolute path and verify it looks like the config folder.
 $ConfigPath = (Resolve-Path $ConfigPath).Path
-$repoProfile = Join-Path $ConfigPath 'profile.ps1'
-if (-not (Test-Path $repoProfile)) {
+$powershellProfile = Join-Path $ConfigPath 'powershell/profile.ps1'
+if (-not (Test-Path $powershellProfile)) {
     throw "No profile.ps1 found at '$ConfigPath'. Pass -ConfigPath pointing at the repo's powershell/ folder."
 }
 
@@ -42,32 +42,24 @@ Write-Host "Set WINCONFIG = $ConfigPath (User, persistent)" -ForegroundColor Gre
 # Each edition has its own profile folder (Documents\PowerShell vs Documents\WindowsPowerShell).
 # We write a one-line stub into both so whichever you launch, it loads the same repo profile.
 # Stub (not hardlink): no admin/symlink rights, and editors can't sever it.
-$stubLine = ". `"$repoProfile`""
+$stubLine = ". `"$powershellProfile`""
+$profile_allhost_target = $PROFILE.CurrentUserAllHosts
+$profile_folder_target = Split-Path $profile_allhost_target
 
-$profiles = @(
-    (Join-Path $HOME 'Documents\PowerShell\profile.ps1')           # PowerShell 7+ (Core)
-    (Join-Path $HOME 'Documents\WindowsPowerShell\profile.ps1')    # Windows PowerShell 5.1
-)
-
-foreach ($p in $profiles) {
-    $dir = Split-Path $p
-    if (-not (Test-Path $dir)) {
-        New-Item -ItemType Directory -Path $dir -Force | Out-Null
-    }
-
-    # Back up an existing real profile unless it's already our stub.
-    if (Test-Path $p) {
-        $existing = Get-Content $p -Raw -ErrorAction SilentlyContinue
-        if ($existing -and ($existing -notmatch [regex]::Escape($repoProfile))) {
-            $backup = "$p.bak-$(Get-Date -Format yyyyMMdd-HHmmss)"
-            Move-Item $p $backup
-            Write-Host "  Backed up $p -> $backup" -ForegroundColor Yellow
-        }
-    }
-
-    Set-Content -Path $p -Value $stubLine -Encoding UTF8
-    Write-Host "  Stub written: $p" -ForegroundColor Green
+if (-not (Test-Path $profile_folder_target)) {
+        New-Item -ItemType Directory -Path $profile_allhost_target -Force | Out-Null
 }
+if (Test-Path $profile_allhost_target) {
+    $existing = Get-Content $profile_allhost_target -Raw -ErrorAction SilentlyContinue
+    if ($existing -and ($existing -notmatch [regex]::Escape($repoProfile))) {
+        $backup = "$p.bak-$(Get-Date -Format yyyyMMdd-HHmmss)"
+        Move-Item $profile_allhost_target $backup
+        Write-Host "  Backed up $p -> $backup" -ForegroundColor Yellow
+    }
+}
+
+Set-Content -Path $profile_allhost_target -Value $stubLine -Encoding UTF8
+Write-Host "  Stub written: $profile_allhost_target" -ForegroundColor Green
 
 # ------------------------------------------------------------------------------------------
 # 3. Windows Terminal Fragments via junction (no admin needed, works on directories)
