@@ -17,9 +17,10 @@ Set-PSREadlineOption -EditMOde vi
 #   Import Modules
 # ------------------------------------------------------------------------------------------
 Import-Module -Name Terminal-Icons                          # Nicer icons on ls
-Import-Module -Name posh-git                                # Automcomplete git commands
 Import-Module -Name PSReadLine                              # PSReadLine (This may be deafult)
 Import-Module -Name PSFzf                                   # Fuzzy finder
+Import-Module -Name git-aliases-plus -DisableNameChecking   # Git aliases based on (oh-my-posh git plugin)
+Import-Module -Name posh-git -arg 0,0,1                     # Automcomplete git commands
 
 # Setup recursive fzf
 Set-PsFzfOption `
