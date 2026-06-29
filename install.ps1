@@ -64,7 +64,7 @@ Write-Host "  Stub written: $profile_allhost_target" -ForegroundColor Green
 # ------------------------------------------------------------------------------------------
 # 3. Windows Terminal Fragments via junction (no admin needed, works on directories)
 # ------------------------------------------------------------------------------------------
-$fragTarget = Join-Path (Split-Path $ConfigPath) 'WindowsTerminal\Fragments'   # repo\WindowsTerminal\Fragments
+$fragTarget = Join-Path $ConfigPath 'WindowsTerminal\Fragments'   # repo\WindowsTerminal\Fragments
 $fragLink   = Join-Path $env:LOCALAPPDATA 'Microsoft\Windows Terminal\Fragments'
 
 if (Test-Path $fragTarget) {
