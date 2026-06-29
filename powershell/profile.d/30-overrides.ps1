@@ -7,6 +7,19 @@
 ### intent: "I am deliberately changing how standard commands behave."
 ### ----------------------------------------------------------------------------------------
 
+# function Remove-AliasIfExists {
+#     [CmdletBinding()]
+#     param(
+#         [Parameter(Mandatory)]
+#         [string]$Name
+#     )
+#
+#     if ( (Get-Command $Name -ErrorAction SilentlyContinue).CommandType -eq "Alias" ) {
+#         Remove-Item Alias:$Name -Force
+#     }
+# }
+
+
 # ------------------------------------------------------------------------------------------
 #   cd - bare `cd` goes HOME (full path), not to the drive root
 # ------------------------------------------------------------------------------------------

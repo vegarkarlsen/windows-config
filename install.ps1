@@ -99,7 +99,7 @@ else {
 # PSReadLine auto-loads and ships with PS7, so it's not installed here.
 # git-aliases-plus is imported by the profile; install it yourself if you use it.
 if ($InstallModules) {
-    $modules = 'Terminal-Icons', 'posh-git', 'PSFzf'
+    $modules = 'Terminal-Icons', 'posh-git', 'PSFzf', "git-aliases-plus"
     foreach ($m in $modules) {
         if (-not (Get-Module -ListAvailable -Name $m)) {
             Write-Host "Installing $m ..." -ForegroundColor Yellow
@@ -120,3 +120,4 @@ Write-Host "  - git-aliases-plus:        install if you use it (profile imports 
 Write-Host "  - Open a NEW shell (either edition) to load the profile."
 Write-Host "`nTo MOVE the config later: move the folder, then re-run:" -ForegroundColor Cyan
 Write-Host "  .\install.ps1 -ConfigPath <new-path>\powershell"
+

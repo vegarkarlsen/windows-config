@@ -18,16 +18,20 @@ if ($env:WINCONFIG -and (Test-Path $env:WINCONFIG)) {
     $ConfigRoot = "$env:WINCONFIG/powershell"
 }
 else {
-    # Fallbacks, in order of preference. Adjust the first if you move the repo and haven't
-    # yet (re)run install.ps1.
-    $candidates = @(
-        "$HOME\Documents\PowerShell\windows-config\powershell"          # PS7 default
-        "$HOME\Documents\WindowsPowerShell\windows-config\powershell"   # 5.1 default
-    )
-    $ConfigRoot = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
-    if (-not $ConfigRoot) { $ConfigRoot = $candidates[0] }   # last resort, may not exist
-    $env:WINCONFIG = $ConfigRoot
+        Write-Host "Could not find config files. Please set $env:WINCONFIG"
 }
+$sw = [System.Diagnostics.Stopwatch]::StartNew()
+# else {
+#     # Fallbacks, in order of preference. Adjust the first if you move the repo and haven't
+#     # yet (re)run install.ps1.
+#     $candidates = @(
+#         "$HOME\Documents\PowerShell\windows-config\powershell"          # PS7 default
+#         "$HOME\Documents\WindowsPowerShell\windows-config\powershell"   # 5.1 default
+#     )
+#     $ConfigRoot = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+#     if (-not $ConfigRoot) { $ConfigRoot = $candidates[0] }   # last resort, may not exist
+#     $env:WINCONFIG = $ConfigRoot
+# }
 
 # ------------------------------------------------------------------------------------------
 #   Load every fragment in profile.d, in filename order
@@ -37,8 +41,10 @@ else {
 $fragmentDir = Join-Path $ConfigRoot 'profile.d'
 if (Test-Path $fragmentDir) {
     Get-ChildItem "$fragmentDir\*.ps1" | Sort-Object Name | ForEach-Object {
+        $sw.Restart()
         try {
             . $_.FullName
+            Write-Host "Loaded $_ - Took $($sw.ElapsedMilliseconds)"
         }
         catch {
             Write-Warning "profile.d: failed to load $($_.Name): $_"
@@ -52,12 +58,17 @@ else {
 # ------------------------------------------------------------------------------------------
 #   Machine-specific config (not committed; see local-profile.example.ps1)
 # ------------------------------------------------------------------------------------------
+
+$sw.Restart()
 $localProfile = Join-Path $ConfigRoot 'local-profile.ps1'
 if (Test-Path $localProfile) {
     . $localProfile
 }
+Write-Host "Loaded $localProfile - Took $($sw.ElapsedMilliseconds)"
 
 # ------------------------------------------------------------------------------------------
 #   Prompt (load last, after everything else is in place)
 # ------------------------------------------------------------------------------------------
+$sw.Restart()
 Invoke-Expression (&starship init powershell)
+Write-Host "Loaded starship - Took $($sw.ElapsedMilliseconds)"

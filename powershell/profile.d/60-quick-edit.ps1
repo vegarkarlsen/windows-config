@@ -11,11 +11,8 @@ function Edit-InEditor {
     Pop-Location
 }
 
-# Edit the live profile (all-hosts) and reload it.
-function Edit-Profile {
-    Edit-InEditor $PROFILE.CurrentUserAllHosts
-    . $PROFILE.CurrentUserAllHosts
-}
+# Edit profile
+function Edit-Profile { Edit-InEditor (Join-Path $env:WINCONFIG "powershell/profile.ps1") }
 
 # Edit individual fragments. $env:WINCONFIG is set in profile.ps1.
 function Edit-Env       { Edit-InEditor (Join-Path $env:WINCONFIG 'powershell\profile.d\00-env.ps1') }

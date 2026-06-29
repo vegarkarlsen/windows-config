@@ -55,7 +55,6 @@ function ln {
     New-Item -Path $Link -ItemType $type -Value $Target
 }
 
-# unzip - the actually-working extractor (old one was a stub).
 function unzip {
     param(
         [Parameter(Mandatory)][string]$File,
