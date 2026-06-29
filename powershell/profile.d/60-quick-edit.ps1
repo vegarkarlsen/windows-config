@@ -18,13 +18,13 @@ function Edit-Profile {
 }
 
 # Edit individual fragments. $env:WINCONFIG is set in profile.ps1.
-function Edit-Env       { Edit-InEditor (Join-Path $env:WINCONFIG 'profile.d\00-env.ps1') }
-function Edit-Aliases   { Edit-InEditor (Join-Path $env:WINCONFIG 'profile.d\20-aliases.ps1') }
-function Edit-Overrides { Edit-InEditor (Join-Path $env:WINCONFIG 'profile.d\30-overrides.ps1') }
-function Edit-Functions { Edit-InEditor (Join-Path $env:WINCONFIG 'profile.d\50-functions.ps1') }
+function Edit-Env       { Edit-InEditor (Join-Path $env:WINCONFIG 'powershell\profile.d\00-env.ps1') }
+function Edit-Aliases   { Edit-InEditor (Join-Path $env:WINCONFIG 'powershell\profile.d\20-aliases.ps1') }
+function Edit-Overrides { Edit-InEditor (Join-Path $env:WINCONFIG 'powershell\profile.d\30-overrides.ps1') }
+function Edit-Functions { Edit-InEditor (Join-Path $env:WINCONFIG 'powershell\profile.d\50-functions.ps1') }
 
 function Edit-LocalProfile {
-    $file = Join-Path $env:WINCONFIG 'local-profile.ps1'
+    $file = Join-Path $env:WINCONFIG 'powershell\local-profile.ps1'
     if (-not (Test-Path $file)) { New-Item -ItemType File -Path $file | Out-Null }
     Edit-InEditor $file
     . $file
