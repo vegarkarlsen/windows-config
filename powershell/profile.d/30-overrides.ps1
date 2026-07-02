@@ -44,23 +44,33 @@ function cd.... { Set-Location ..\..\.. }
 if ((Get-Command ls -ErrorAction SilentlyContinue).CommandType -eq 'Alias') {
     Remove-Item Alias:ls -Force
 }
+# function ls {
+#     if ($args.Count -eq 0) {
+#         Get-ChildItem | Where-Object { $_.Name -notmatch '^\.' }
+#     }
+#     elseif ($args -contains '-la' -or $args -contains '-al') {
+#         Get-ChildItem -Force
+#     }
+#     elseif ($args -contains '-a') {
+#         Get-ChildItem
+#     }
+#     else {
+#         Get-ChildItem @args
+#     }
+# }
 function ls {
-    if ($args.Count -eq 0) {
-        Get-ChildItem | Where-Object { $_.Name -notmatch '^\.' }
-    }
-    elseif ($args -contains '-la' -or $args -contains '-al') {
-        Get-ChildItem -Force
-    }
-    elseif ($args -contains '-a') {
-        Get-ChildItem
-    }
-    else {
-        Get-ChildItem @args
-    }
+    # eza --icons --group-directories-first
+    eza --group-directories-first $args
 }
-function la { Get-ChildItem }            # all, including dotfiles
-function ll { Get-ChildItem -Force }     # all, including hidden/system
+function la { ls -a }            # all, including dotfiles
+function ll { ls -l }     # all, including hidden/system
+function lla { ls -la }     # all, including hidden/system
 
+
+if ((Get-Command tree -ErrorAction SilentlyContinue).CommandType -eq 'Alias') {
+    Remove-Item Alias:tree -Force
+}
+function tree { eza --tree }
 # ------------------------------------------------------------------------------------------
 #   Env: drive shortcut
 # ------------------------------------------------------------------------------------------

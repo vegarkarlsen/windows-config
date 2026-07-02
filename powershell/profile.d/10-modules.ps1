@@ -21,7 +21,7 @@ Set-PSReadLineOption -EditMode vi
 # ------------------------------------------------------------------------------------------
 #   Modules with startup side effects (eager import is intentional)
 # ------------------------------------------------------------------------------------------
-Import-Module Terminal-Icons                            # nicer icons in listings
+# Import-Module Terminal-Icons                            # nicer icons in listings
 Import-Module PSFzf                                     # fuzzy finder
 Import-Module git-aliases-plus -DisableNameChecking     # git aliases (oh-my-posh style)
 Import-Module posh-git -ArgumentList 0, 0, 1            # git tab-completion + status
