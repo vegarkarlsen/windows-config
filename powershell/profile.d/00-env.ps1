@@ -47,6 +47,4 @@ Add-ToPath "$HOME\.local\bin"
 # ------------------------------------------------------------------------------------------
 #   Starship config - derived from $env:WINCONFIG, never hard-coded
 # ------------------------------------------------------------------------------------------
-# This was the bug in the old config: it pointed at ...\WindowsPowerShell\... while the rest
-# of the config resolved to ...\PowerShell\..., so on PS7 it pointed at a nonexistent file.
 $env:STARSHIP_CONFIG = Join-Path $env:WINCONFIG 'starship\starship.toml'
