@@ -30,17 +30,16 @@ if (-not (Test-Path $powershellProfile)) {
 Write-Host "Installing config from: $ConfigPath" -ForegroundColor Cyan
 
 # ------------------------------------------------------------------------------------------
-# 1. Record the location persistently (User scope -> BOTH editions inherit it)
+# 1. Record the location persistently
 # ------------------------------------------------------------------------------------------
 [Environment]::SetEnvironmentVariable('WINCONFIG', $ConfigPath, 'User')
 $env:WINCONFIG = $ConfigPath   # also set in THIS session so it's usable immediately
 Write-Host "Set WINCONFIG = $ConfigPath (User, persistent)" -ForegroundColor Green
 
 # ------------------------------------------------------------------------------------------
-# 2. Stub BOTH editions' all-hosts profile -> repo profile.ps1
+# 2. Stub all-hosts profile -> repo profile.ps1
 # ------------------------------------------------------------------------------------------
-# Each edition has its own profile folder (Documents\PowerShell vs Documents\WindowsPowerShell).
-# We write a one-line stub into both so whichever you launch, it loads the same repo profile.
+# We write a one-line stub into all-hosts profile.
 # Stub (not hardlink): no admin/symlink rights, and editors can't sever it.
 $stubLine = ". `"$powershellProfile`""
 $profile_allhost_target = $PROFILE.CurrentUserAllHosts
@@ -73,7 +72,16 @@ if (Test-Path $fragTarget) {
         Write-Host "Junctioned WT Fragments -> $fragTarget" -ForegroundColor Green
     }
     else {
-        Write-Host "WT Fragments link already exists - skipping"
+        $response = Read-Host "WT Fragments link already exists. Relink it? (y/N)"
+
+        if ($response -match '^(y|yes)$') {
+            Remove-Item $fragLink -Force
+            New-Item -ItemType Junction -Path $fragLink -Target $fragTarget | Out-Null
+            Write-Host "Relinked WT Fragments -> $fragTarget" -ForegroundColor Green
+        }
+        else {
+            Write-Host "WT Fragments link already exists - skipping"
+            }
     }
 }
 else {
@@ -99,7 +107,7 @@ else {
 # PSReadLine auto-loads and ships with PS7, so it's not installed here.
 # git-aliases-plus is imported by the profile; install it yourself if you use it.
 if ($InstallModules) {
-    $modules = 'Terminal-Icons', 'posh-git', 'PSFzf', "git-aliases-plus"
+    $modules = 'posh-git', 'PSFzf', "git-aliases-plus"
     foreach ($m in $modules) {
         if (-not (Get-Module -ListAvailable -Name $m)) {
             Write-Host "Installing $m ..." -ForegroundColor Yellow
@@ -115,8 +123,8 @@ if ($InstallModules) {
 # 6. Reminders
 # ------------------------------------------------------------------------------------------
 Write-Host "`nDone." -ForegroundColor Cyan
-Write-Host "  - starship (if missing):  winget install Starship.Starship"
-Write-Host "  - git-aliases-plus:        install if you use it (profile imports it)"
+# Write-Host "  - starship (if missing):  winget install Starship.Starship"
+# Write-Host "  - git-aliases-plus:        install if you use it (profile imports it)"
 Write-Host "  - Open a NEW shell (either edition) to load the profile."
 Write-Host "`nTo MOVE the config later: move the folder, then re-run:" -ForegroundColor Cyan
 Write-Host "  .\install.ps1 -ConfigPath <new-path>\powershell"
