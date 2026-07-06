@@ -1,0 +1,14 @@
+[tools]
+python = "3.12.10"
+# uv = "latest"
+
+neovim = "latest"
+
+# ripgrep = "latest"
+fd = "latest"
+"github:eza-community/eza" = "latest"
+bat = "latest"
+fzf = "latest"
+
+lazygit = "latest"
+starship = "latest"
