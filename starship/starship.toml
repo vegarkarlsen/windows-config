@@ -47,14 +47,14 @@ $custom\
 """
 
 # Show which ROS distro when ROS is activated
-[custom.ros]
-command = "echo $ROS_DISTRO"
-when = "test $ROS_VERSION"
-format = """[󱎕](fg:black)\
-[󰳗 $output]($style)\
-[](fg:black)
-"""
-style = "fg:bold yellow bg:black"
+# [custom.ros]
+# command = "echo $ROS_DISTRO"
+# when = "test $ROS_VERSION"
+# format = """[󱎕](fg:black)\
+# [󰳗 $output]($style)\
+# [](fg:black)
+# """
+# style = "fg:bold yellow bg:black"
 
 
 [git_status]
