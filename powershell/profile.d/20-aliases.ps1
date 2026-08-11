@@ -12,7 +12,7 @@ Set-Alias e      explorer.exe
 Set-Alias open   Invoke-Item
 
 # Python venv (run the activate script in the current dir's venv)
-Set-Alias activate .\venv\Scripts\Activate.ps1
+# Set-Alias activate .\venv\Scripts\Activate.ps1
 
 # gsudo (uncomment if installed)
 # Set-Alias sudo gsudo

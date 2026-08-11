@@ -64,6 +64,27 @@ function unzip {
     Expand-Archive -Path $File -DestinationPath $Destination -Force
 }
 
+function activate {
+    $venvNames = @(
+        ".venv",
+        "venv"
+    )
+
+    foreach ($name in $venvNames) {
+            $activate = Join-Path $PWD ".\$name\Scripts\Activate.ps1"
+
+            if (Test-Path $activate) {
+                Write-Host "Activating $name"
+                & $activate
+                return
+            }
+
+    }
+    write-Warning "No python virtual environment found."
+
+
+}
+
 # ------------------------------------------------------------------------------------------
 #   System
 # ------------------------------------------------------------------------------------------
