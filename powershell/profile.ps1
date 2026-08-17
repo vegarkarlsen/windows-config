@@ -20,10 +20,12 @@ if ($env:WINCONFIG -and (Test-Path $env:WINCONFIG)) {
 else {
         Write-Host "Could not find config files. Please set $env:WINCONFIG"
 }
-# $sw = [System.Diagnostics.Stopwatch]::StartNew()
 
 # Activate mise before everything else, to get everything in path
+# NOTE: Using mise activate is slower at startup compared witg adding the shims directory to path, however
+# The usage of the executables is much faster aftwerward when usign mise activate.
 mise activate pwsh | Out-String | Invoke-Expression
+# $env:path = "$Env:LOCALAPPDATA\mise\shims;$env:PATH"
 
 # ------------------------------------------------------------------------------------------
 #   Load every fragment in profile.d, in filename order
@@ -33,10 +35,8 @@ mise activate pwsh | Out-String | Invoke-Expression
 $fragmentDir = Join-Path $ConfigRoot 'profile.d'
 if (Test-Path $fragmentDir) {
     Get-ChildItem "$fragmentDir\*.ps1" | Sort-Object Name | ForEach-Object {
-        # $sw.Restart()
         try {
             . $_.FullName
-            # Write-Host "Loaded $_ - Took $($sw.ElapsedMilliseconds)"
         }
         catch {
             Write-Warning "profile.d: failed to load $($_.Name): $_"
@@ -51,17 +51,13 @@ else {
 #   Machine-specific config (not committed; see local-profile.example.ps1)
 # ------------------------------------------------------------------------------------------
 
-# $sw.Restart()
 $localProfile = Join-Path $ConfigRoot 'local-profile.ps1'
 if (Test-Path $localProfile) {
     . $localProfile
 }
-# Write-Host "Loaded $localProfile - Took $($sw.ElapsedMilliseconds)"
 
 # ------------------------------------------------------------------------------------------
 #   Prompt (load last, after everything else is in place)
 # ------------------------------------------------------------------------------------------
-# $sw.Restart()
 Invoke-Expression (&starship init powershell)
-# Write-Host "Loaded starship - Took $($sw.ElapsedMilliseconds)"
 
