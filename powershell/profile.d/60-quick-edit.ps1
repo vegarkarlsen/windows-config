@@ -35,6 +35,7 @@ Set-Alias maliasl Edit-LocalProfile
 # ------------------------------------------------------------------------------------------
 #   Lazy tools loader
 # ------------------------------------------------------------------------------------------
+# NOTE : Still experimental
 # For heavy / situational function sets you do NOT want loaded at startup. Drop a .ps1 in
 # the repo's lazy/ folder and pull it in on demand:  Load-Tools <name>   (no extension).
 function Load-Tools {

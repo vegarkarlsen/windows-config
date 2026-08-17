@@ -37,12 +37,15 @@ Add-ToPath "C:\Program Files\Neovim\bin"
 Add-ToPath "$HOME\.local\var\nvim-win64\bin"
 Add-ToPath "C:\Program Files\QGIS 3.40.15\bin"
 
-Add-ToPath "C:\msys64"
-Add-ToPath "C:\msys64\ucrt64\bin"
+
+# Add-ToPath "C:\msys64"
+# Add-ToPath "C:\msys64\ucrt64\bin"
 
 # Repo scripts (the committed bin/) and user-local bin (machine-local symlinks)
 # Add-ToPath (Join-Path $env:WINCONFIG 'bin')
 Add-ToPath "$HOME\.local\bin"
+
+$env:YAZI_FILE_ONE = "C:\Program Files\Git\usr\bin\file.exe"
 
 # ------------------------------------------------------------------------------------------
 #   Starship config - derived from $env:WINCONFIG, never hard-coded
