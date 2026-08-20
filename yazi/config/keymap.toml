@@ -1,0 +1,33 @@
+
+## Navigate Onedrive
+[[mgr.prepend_keymap]]
+on = ["g", "o", "o"]
+run = "cd '~/Onedrive - Statens Kartverk/'"
+desc = "Onedrive"
+for = "windows"
+
+[[mgr.prepend_keymap]]
+on = ["g", "o", "s"]
+run = "cd '~/Onedrive - Statens Kartverk/01 TEK/Tek - Sjømåling/'"
+desc = "TEK - Sjømåling"
+for = "windows"
+
+
+[[mgr.prepend_keymap]]
+on = ["g", "o", "p"]
+run = "cd '~/Onedrive - Statens Kartverk/01 TEK/Tek - Prosjekt/'"
+desc = "TEK - Prosjekt"
+for = "windows"
+
+## -----------------------
+## General
+
+[[mgr.prepend_keymap]]
+on = ["g", "l"]
+run = "cd '~/.local'"
+desc = ".local"
+
+
+
+
+
