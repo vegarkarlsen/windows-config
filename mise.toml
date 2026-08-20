@@ -1,0 +1,7 @@
+
+[dotfiles]
+# behavior on windows:
+# On windows mise uses junction on folders, and copies files (no link).
+"~/.config/mise" = "./mise"
+"~/.config/yazi" = "./yazi"
+"~/.config/wezterm" = "./wezterm"
